@@ -5,6 +5,14 @@ from app.utils import censor_faces
 
 bp = Blueprint('main', __name__)
 
+
+UPLOAD_FOLDER = 'app/uploads'
+PROCESSED_FOLDER = 'app/processed'
+
+# Crea le cartelle necessarie se non esistono
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(PROCESSED_FOLDER, exist_ok=True)
+
 @bp.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -12,14 +20,19 @@ def index():
         if not file:
             return "No file uploaded", 400
 
+        # Crea la cartella uploads se non esiste
+        if not os.path.exists(UPLOAD_FOLDER):
+            os.makedirs(UPLOAD_FOLDER)
+
         filename = secure_filename(file.filename)
-        input_path = os.path.join('app/uploads', filename)
+        input_path = os.path.join(UPLOAD_FOLDER, filename)
         file.save(input_path)
 
         output_filename = f"censored_{filename}"
         output_path = os.path.join('app/processed', output_filename)
         censor_faces(input_path, output_path)
 
+        flash("Video processed successfully!", "success")
         return redirect(url_for('main.download', filename=output_filename))
 
     return render_template('index.html')

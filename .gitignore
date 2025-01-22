@@ -17,6 +17,10 @@ env/
 # Flask debug logs
 *.log
 
+# Uploaded media and processed files
+app/uploads/
+app/processed/
+
 # Temporary files
 *.tmp
 *.temp
