@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environment
+venv/
+ENV/
+env/
+
+# Environment variables
+.env
+
+# Flask debug logs
+*.log
+
+# Uploaded media and processed files
+app/uploads/
+app/processed/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+
+# IDE and editor settings
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# macOS files
+.DS_Store
